@@ -1,0 +1,30 @@
+ * {
+    padding: 0;
+    margin: 0;
+}
+
+#display {
+    height: 800px;
+    width: 800px;
+    display: inline-block;
+    border: 1px solid black;
+}
+
+.row {
+  height: 16px;
+}
+
+.block {
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    border: 0px
+}
+
+.snake {
+    background-color: #0000ff;
+}
+
+.food {
+    background-color: #e9fd09;
+}
