@@ -1,6 +1,6 @@
 
 var game = new SnakeGame();
-var gameTimer = setInterval(gameLoop, 400);
+var gameTimer = setInterval(gameLoop, 200);
 
 function gameLoop() {
     game.snakeLoop();

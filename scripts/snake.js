@@ -15,9 +15,14 @@ class Snake {
         ];
         this.direction = DIRECTION.RIGHT;
         this.isGameOver = false;
+        this.isExtendingLength = false;
     }
 
     updateSnakePosition(maxX, maxY) {
+        if (this.isGameOver)
+            return;
+
+        
         let oldPos = this.positions[0];
         let pos = new Pos(oldPos.x, oldPos.y);
 
@@ -39,16 +44,40 @@ class Snake {
                 break;
         }
 
-        if (pos.isOutOfRange(0, 0, maxX, maxY)) {
+        if (pos.isOutOfRange(0, 0, maxX, maxY) || this.isCollideWithSnake(pos)) {
             this.gameOver();
         }
 
         this.positions.splice(0, 0, pos);
-        this.positions.pop();
+        if (!this.isExtendingLength)
+        {
+            this.positions.pop();
+        }
+        else {
+            this.isExtendingLength = false;
+        }
+    }
+
+    isEatFood(food) {
+        return this.positions[0].equals(food.position);
+    }
+
+    extendLength() {
+        this.isExtendingLength = true;
     }
 
     changeDirection(newDirection) {
         this.direction = newDirection;
+    }
+
+    isCollideWithSnake(position) {
+        for (let i=0; i<this.positions; i++) {
+            if (this.positions[i].equals(position)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     gameOver() {

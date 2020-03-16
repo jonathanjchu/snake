@@ -3,11 +3,30 @@
     margin: 0;
 }
 
+body {
+    background: #000000;
+}
+
 #display {
     height: 800px;
     width: 800px;
     display: inline-block;
-    border: 1px solid black;
+    border: 5px solid #fff;
+    background: #000;
+}
+
+#scoreboard {
+    margin: 24px;
+    padding: 24px;
+    height: 120px;
+    width: 240px;
+    display: inline-block;
+    border: 5px solid #fff;
+    vertical-align: top;
+    color: #fff;
+    font: 28px 'VT323', monospace;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .row {
@@ -22,7 +41,7 @@
 }
 
 .snake {
-    background-color: #0000ff;
+    background-color: #5395ff;
 }
 
 .food {
