@@ -16,6 +16,7 @@ class Snake {
         this.direction = DIRECTION.RIGHT;
         this.isGameOver = false;
         this.extend = 0;
+        this.directionLock = false;
     }
 
     updateSnakePosition(maxX, maxY) {
@@ -55,6 +56,8 @@ class Snake {
         else {
             this.extend--;
         }
+
+        this.directionLock = false;
     }
 
     isEatFood(food) {
@@ -67,16 +70,20 @@ class Snake {
 
     changeDirection(newDirection) {
         // dont allow reverse
-        if (this.direction == DIRECTION.LEFT && newDirection != DIRECTION.RIGHT ||
+        if ((this.direction == DIRECTION.LEFT && newDirection != DIRECTION.RIGHT ||
             this.direction == DIRECTION.RIGHT && newDirection != DIRECTION.LEFT ||
             this.direction == DIRECTION.UP && newDirection != DIRECTION.DOWN ||
-            this.direction == DIRECTION.DOWN && newDirection != DIRECTION.UP) {
+            this.direction == DIRECTION.DOWN && newDirection != DIRECTION.UP) &&
+            !this.directionLock) {
+
             this.direction = newDirection;
+            // lock direction in case user tries to change directions too quickly (before snake has a chance to update)
+            this.directionLock = true;
         }
     }
 
     isCollideWithSnake(position) {
-        for (let i = 0; i < this.positions; i++) {
+        for (let i = 0; i < this.positions.length; i++) {
             if (this.positions[i].equals(position)) {
                 return true;
             }

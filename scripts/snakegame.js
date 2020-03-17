@@ -10,10 +10,11 @@ const MAX_HEIGHT = 50;
 
 class SnakeGame {
     constructor() {
-        this.board = []; // y => x\
+        this.board = [];
         this.snake = new Snake();
         this.food = new Food(0, 0, MAX_WIDTH, MAX_HEIGHT);
         this.score = 0;
+        this.pointsPerFood = 10;
     }
 
     snakeLoop() {
@@ -49,9 +50,11 @@ class SnakeGame {
 
     checkFoodCollision() {
         if (this.snake.isEatFood(this.food)) {
-            this.score += 10;
+            this.score += this.pointsPerFood;
 
-            this.food = new Food(1, 1, MAX_WIDTH-1, MAX_HEIGHT-1);
+            do {
+                this.food = new Food(1, 1, MAX_WIDTH-1, MAX_HEIGHT-1);
+            } while (this.snake.isCollideWithSnake(this.food.position));
 
             this.snake.extendLength();
         }

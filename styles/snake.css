@@ -42,12 +42,13 @@ body {
 }
 
 .snake {
-    background-color: #5395ff;
+    background-color: #74b5ff;
     border: 1px solid #0000ff;
 }
 
 .food {
     background-color: #e9fd09;
+    box-sizing: border-box;
 }
 
 #gameover_display {
