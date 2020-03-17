@@ -9,6 +9,6 @@ class Pos {
     }
 
     isOutOfRange(minX, minY, maxX, maxY) {
-        return this.x < minX || this.y < minY || this.x > maxX || this.y > maxY;
+        return this.x < minX || this.y < minY || this.x >= maxX || this.y >= maxY;
     }
 }

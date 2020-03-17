@@ -4,7 +4,7 @@
 }
 
 body {
-    background: #000000;
+    background: #111;
 }
 
 #display {
@@ -37,13 +37,54 @@ body {
     height: 16px;
     width: 16px;
     display: inline-block;
-    border: 0px
+    border: 0px;
+    box-sizing: border-box;
 }
 
 .snake {
     background-color: #5395ff;
+    border: 1px solid #0000ff;
 }
 
 .food {
     background-color: #e9fd09;
+}
+
+#gameover_display {
+    width: 100%;
+    height: 100%;
+    background-color: #111;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    text-align: center;
+}
+
+.gameover {
+    margin-top: 10%;
+    padding: 24px;
+    height: 280px;
+    width: 360px;
+    display: inline-block;
+    border: 5px solid #fff;
+    vertical-align: middle;
+    color: #fff;
+    font: 60px 'VT323', monospace;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.gameover h3 {
+    font-size: 40px;
+}
+
+.gameover button {
+    border-radius: 6px;
+    border: 3px solid #fff;
+    background-color: #333;
+    color: #fff;
+    height: 36px;
+    width: 100px;
+    font: 22px 'VT323', monospace;
 }

@@ -4,30 +4,34 @@ const BLOCK = {
     FOOD: 2
 };
 
+const MAX_WIDTH = 50;
+const MAX_HEIGHT = 50;
+
 
 class SnakeGame {
     constructor() {
         this.board = []; // y => x\
         this.snake = new Snake();
-        this.food = new Food(0, 0, 50, 50);
+        this.food = new Food(0, 0, MAX_WIDTH, MAX_HEIGHT);
+        this.score = 0;
     }
 
     snakeLoop() {
-        this.resetBoard();
+        if (!this.snake.isGameOver) {
+            this.resetBoard();
 
-        this.snake.updateSnakePosition();
+            this.snake.updateSnakePosition(MAX_WIDTH, MAX_HEIGHT);
 
-        this.checkFoodCollision();
+            this.checkFoodCollision();
 
-        this.updateBoard();
-
-        this.display();
+            this.updateBoard();
+        }
     }
 
     resetBoard() {
         this.board = [];
-        for (let b = 0; b < 50; b++) {
-            this.board.push(new Array(50).fill(0));
+        for (let b = 0; b < MAX_HEIGHT; b++) {
+            this.board.push(new Array(MAX_WIDTH).fill(0));
         }
     }
 
@@ -43,35 +47,12 @@ class SnakeGame {
         }
     }
 
-    display() {
-        var output = "";
-
-        for (let i = 0; i < this.board.length; i++) {
-            output += "<div class='row'>";
-            for (let j = 0; j < this.board[i].length; j++) {
-                output += `<div class="block`;
-                switch (this.board[i][j]) {
-                    case BLOCK.SNAKE:
-                        output += " snake";
-                        break;
-
-                    case BLOCK.FOOD:
-                        output += " food";
-                        break;
-                }
-                output += `" x="${j}" y="${i}">`;
-                output += "</div>";
-            }
-            output += "</div>";
-        }
-
-        document.getElementById("display").innerHTML = output;
-    }
-
     checkFoodCollision() {
         if (this.snake.isEatFood(this.food)) {
-            this.food = new Food(0, 0, 50, 50);
-            
+            this.score += 10;
+
+            this.food = new Food(1, 1, MAX_WIDTH-1, MAX_HEIGHT-1);
+
             this.snake.extendLength();
         }
     }
@@ -80,7 +61,7 @@ class SnakeGame {
         this.snake.changeDirection(newDirection);
     }
 
-    makeFood() {
-
+    isGameOver() {
+        return this.snake.isGameOver;
     }
 }

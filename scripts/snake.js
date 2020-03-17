@@ -15,14 +15,14 @@ class Snake {
         ];
         this.direction = DIRECTION.RIGHT;
         this.isGameOver = false;
-        this.isExtendingLength = false;
+        this.extend = 0;
     }
 
     updateSnakePosition(maxX, maxY) {
         if (this.isGameOver)
             return;
 
-        
+
         let oldPos = this.positions[0];
         let pos = new Pos(oldPos.x, oldPos.y);
 
@@ -49,12 +49,11 @@ class Snake {
         }
 
         this.positions.splice(0, 0, pos);
-        if (!this.isExtendingLength)
-        {
+        if (this.extend == 0) {
             this.positions.pop();
         }
         else {
-            this.isExtendingLength = false;
+            this.extend--;
         }
     }
 
@@ -63,15 +62,21 @@ class Snake {
     }
 
     extendLength() {
-        this.isExtendingLength = true;
+        this.extend = 3;
     }
 
     changeDirection(newDirection) {
-        this.direction = newDirection;
+        // dont allow reverse
+        if (this.direction == DIRECTION.LEFT && newDirection != DIRECTION.RIGHT ||
+            this.direction == DIRECTION.RIGHT && newDirection != DIRECTION.LEFT ||
+            this.direction == DIRECTION.UP && newDirection != DIRECTION.DOWN ||
+            this.direction == DIRECTION.DOWN && newDirection != DIRECTION.UP) {
+            this.direction = newDirection;
+        }
     }
 
     isCollideWithSnake(position) {
-        for (let i=0; i<this.positions; i++) {
+        for (let i = 0; i < this.positions; i++) {
             if (this.positions[i].equals(position)) {
                 return true;
             }
